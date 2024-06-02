@@ -25,9 +25,9 @@ Here is an example
 `shazam.yml`
 
 ```yaml
-symlinks:
-  - name: neovim
-    files:
+configurations: # one of the root directories in your dotfiles directory
+  - name: neovim # one subdirectory in the configurations directory
+    files: # a list of files or directories that you want to symlink
       - source: nvim
         destination: $HOME/.config/nvim
   - name: tmux
@@ -58,7 +58,7 @@ symlinks:
         destination: $HOME/.ssh
 ```
 
-The `symlinks` key is corresponds to a
+The `configurations` key is corresponds to a
 directory in your dotfiles directory.
 
 It can be any name you want.
@@ -129,8 +129,7 @@ dotfiles
 ├── neovimfiles
 │   ├── neovim
 │   │   ├── nvim
-|   |   |   ├── ...
-
+│   │   │   ├── ...
 ```
 Then your `shazam.yml` file would look like this:
 
@@ -151,6 +150,8 @@ neovimfiles:
         destination: $HOME/.config/nvim
 ```
 
+## `--config` flag
+
 You can also have a custom configuration file name.
 
 To specify a custom configuration file name, you can use the `--config` flag.
@@ -159,22 +160,38 @@ To specify a custom configuration file name, you can use the `--config` flag.
 shazam --config my-others-machine-config.yml
 ```
 
+## `--dry-run` flag
+
 You can also run `shazam` with the `--dry-run` flag to see what symlinks will be created.
 
 ```sh
 shazam --dry-run
 ```
 
-If you want to create a certain symlink,
-you can use the `--root` and  `--only` flags in combination.
+## `--root` flag
 
 ```sh
-shazam --root configurations --only git
+shazam --root configurations
+```
+This will run all symlink actions in the of the `configurations` `root`.
+
+> [!TIP]
+> If you want to create a certain symlink,
+> you can use the `--root` and  `--only` flags in combination.
+
+## `--only` flag
+
+```sh
+shazam --only git
 ```
 
-This will only create the `git` symlink(s) in the `configurations` root.
+This will only create the `git` symlink(s).
 
-### Existing configurations
+> [!TIP]
+> If you want to create a certain symlink,
+> you can use the `--root` and  `--only` flags in combination.
+
+## `--pull-in-existing` flag
 
 If the destination file already exists,
 `shazam` will do nothing and skip the creation of the symlink.
@@ -188,14 +205,16 @@ and also symlink it, you can use the `--pull-in-existing` flag.
 shazam --pull-in-existing
 ```
 
-I would recommend to backup any existing files in your dotfiles directory,
-before running this command,
-because it will overwrite the existing files.
+> [!WARNING]
+> It's recommended to backup any existing files in your dotfiles directory,
+> before running this command,
+> because it will overwrite the existing files.
 
-If you have some sort of version control system in place,
-you can use that to backup your files.
+> [!TIP]
+> If you have some sort of version control system in place,
+> you can use that to backup your files.
 
-### Passing a path to shazam.sh
+## `--dotfiles-path` flag
 
 You can pass a path to `shazam` to specify the path to your dotfiles directory
 via the `--dotfiles-path` flag.
@@ -206,7 +225,7 @@ shazam --dotfiles-path /path/to/dotfiles
 
 This will use the specified path as the root directory for your dotfiles.
 
-### Passing a filepath to shazam.sh
+## `--path` flag
 
 You can pass a path to `shazam` to specify a single configuration file,
 that you want shazam.sh to create symlinks for via the `--path` flag.
@@ -220,6 +239,15 @@ the `--config` flag.
 ```sh
 shazam --path configurations/git
 ```
+> [!TIP]
+> The `--path` flag works by checking if the path starts
+> with the root directory name + the configuration name + the file or directory name.
+>
+> So you could also run `shazam --path configurations/git/gitconfig`
+
+> [!NOTE]
+> The `--path` flag is not meant to be used in conjunction
+> with the `--root` and `--only` flags.
 
 ## Example dotfiles repository
 
