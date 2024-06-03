@@ -19,7 +19,6 @@
   <p></p>
 
 [![Go](https://img.shields.io/badge/Made%20with%20Go-00ADD8.svg?style=for-the-badge&logo=go&logoColor=ffffff)](https://golang.org)
-[![charm.sh](https://img.shields.io/badge/Made%20with%20charm.sh-ff6dff.svg?style=for-the-badge&logo=go&logoColor=ffffff)](https://charm.sh)
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/mistweaverco/shazam.sh?style=for-the-badge)](https://github.com/mistweaverco/shazam.sh/releases)
 [![GitHub Workflow Build Status](https://img.shields.io/github/actions/workflow/status/mistweaverco/shazam.sh/build.yml?style=for-the-badge)](https://github.com/mistweaverco/shazam.sh/actions/workflows/build.yml)
 [![GitHub Workflow Lint Status](https://img.shields.io/github/actions/workflow/status/mistweaverco/shazam.sh/build.yml?style=for-the-badge&label=lint)](https://github.com/mistweaverco/shazam.sh/actions/workflows/lint.yml)
