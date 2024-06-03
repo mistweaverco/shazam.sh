@@ -15,9 +15,16 @@
   <a href="#advanced-configuration">Advanced</a>
   <span> • </span>
   <a href="#example-dotfiles-repository">Example Dotfiles Repo</a>
+
   <p></p>
 
-![Go](https://img.shields.io/badge/Made%20with%20Go-00ADD8.svg?style=for-the-badge&logo=go&logoColor=ffffff)
+[![Go](https://img.shields.io/badge/Made%20with%20Go-00ADD8.svg?style=for-the-badge&logo=go&logoColor=ffffff)](https://golang.org)
+  <span> • </span>
+[![charm.sh](https://img.shields.io/badge/Made%20with%20charm.sh-ff6dff.svg?style=for-the-badge&logo=go&logoColor=ffffff)](https://charm.sh)
+  <span> • </span>
+[![GitHub release (latest by date)](https://img.shields.io/github/v/release/mistweaverco/shazam.sh?style=for-the-badge)](https://github.com/mistweaverco/shazam.sh/releases)
+  <span> • </span>
+[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/mistweaverco/shazam.sh/Go?style=for-the-badge)](https://github.com/mistweaverco/shazam.sh/actions)
 
 </div>
 
