@@ -19,15 +19,10 @@
   <p></p>
 
 [![Go](https://img.shields.io/badge/Made%20with%20Go-00ADD8.svg?style=for-the-badge&logo=go&logoColor=ffffff)](https://golang.org)
-  <span> • </span>
 [![charm.sh](https://img.shields.io/badge/Made%20with%20charm.sh-ff6dff.svg?style=for-the-badge&logo=go&logoColor=ffffff)](https://charm.sh)
-  <span> • </span>
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/mistweaverco/shazam.sh?style=for-the-badge)](https://github.com/mistweaverco/shazam.sh/releases)
-  <span> • </span>
 [![GitHub Workflow Build Status](https://img.shields.io/github/actions/workflow/status/mistweaverco/shazam.sh/build.yml?style=for-the-badge)](https://github.com/mistweaverco/shazam.sh/actions/workflows/build.yml)
-  <span> • </span>
 [![GitHub Workflow Lint Status](https://img.shields.io/github/actions/workflow/status/mistweaverco/shazam.sh/build.yml?style=for-the-badge&label=lint)](https://github.com/mistweaverco/shazam.sh/actions/workflows/lint.yml)
-  <span> • </span>
 [![GitHub Workflow Test Status](https://img.shields.io/github/actions/workflow/status/mistweaverco/shazam.sh/build.yml?style=for-the-badge&label=test)](https://github.com/mistweaverco/shazam.sh/actions/workflows/test.yml)
 
 </div>
