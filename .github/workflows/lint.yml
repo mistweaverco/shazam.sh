@@ -11,7 +11,7 @@ permissions:
   pull-requests: read
 
 jobs:
-  build:
+  lint:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -26,6 +26,10 @@ jobs:
         uses: actions/setup-go@v5
         with:
           go-version: 1.22
+      - name: Set up golangci-lint
+        uses: golangci/golangci-lint-action@v6
+        with:
+          version: v1.58
           cache: true
       - name: Lint
         run: make lint

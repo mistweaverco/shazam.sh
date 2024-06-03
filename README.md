@@ -21,8 +21,8 @@
 [![Go](https://img.shields.io/badge/Made%20with%20Go-00ADD8.svg?style=for-the-badge&logo=go&logoColor=ffffff)](https://golang.org)
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/mistweaverco/shazam.sh?style=for-the-badge)](https://github.com/mistweaverco/shazam.sh/releases)
 [![GitHub Workflow Build Status](https://img.shields.io/github/actions/workflow/status/mistweaverco/shazam.sh/build.yml?style=for-the-badge)](https://github.com/mistweaverco/shazam.sh/actions/workflows/build.yml)
-[![GitHub Workflow Lint Status](https://img.shields.io/github/actions/workflow/status/mistweaverco/shazam.sh/build.yml?style=for-the-badge&label=lint)](https://github.com/mistweaverco/shazam.sh/actions/workflows/lint.yml)
-[![GitHub Workflow Test Status](https://img.shields.io/github/actions/workflow/status/mistweaverco/shazam.sh/build.yml?style=for-the-badge&label=test)](https://github.com/mistweaverco/shazam.sh/actions/workflows/test.yml)
+[![GitHub Workflow Lint Status](https://img.shields.io/github/actions/workflow/status/mistweaverco/shazam.sh/lint.yml?style=for-the-badge&label=lint)](https://github.com/mistweaverco/shazam.sh/actions/workflows/lint.yml)
+[![GitHub Workflow Test Status](https://img.shields.io/github/actions/workflow/status/mistweaverco/shazam.sh/test.yml?style=for-the-badge&label=test)](https://github.com/mistweaverco/shazam.sh/actions/workflows/test.yml)
 
 </div>
 
