@@ -32,7 +32,7 @@
 # Why
 
 Why not simply use GNU stow?
-but AFAIK it doesn't support symlinking files to
+GNU stow is great, but AFAIK it doesn't support symlinking files to
 various different directories easily.
 
 This is a feature that I wanted to have in my dotfiles manager.
