@@ -17,9 +17,13 @@ jobs:
           VERSION=${GITHUB_REF_NAME#v}
           echo "VERSION=$VERSION" >> $GITHUB_ENV
       - name: Set up Go
-        uses: actions/setup-go@v2
+        uses: actions/setup-go@v5
         with:
           go-version: 1.22
+      - name: Set up golangci-lint
+        uses: golangci/golangci-lint-action@v6
+        with:
+          version: v1.58
           cache: true
       - name: Test
         run: make test
