@@ -24,7 +24,7 @@
   <span> • </span>
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/mistweaverco/shazam.sh?style=for-the-badge)](https://github.com/mistweaverco/shazam.sh/releases)
   <span> • </span>
-[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/mistweaverco/shazam.sh/Go?style=for-the-badge)](https://github.com/mistweaverco/shazam.sh/actions)
+[![GitHub Workflow Build Status](https://img.shields.io/github/actions/workflow/status/mistweaverco/shazam.sh/build.yml?style=for-the-badge)](https://github.com/mistweaverco/shazam.sh/actions)
 
 </div>
 
