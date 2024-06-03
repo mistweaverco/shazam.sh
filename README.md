@@ -13,6 +13,8 @@
   <a href="#example">Example</a>
   <span> • </span>
   <a href="#advanced-configuration">Advanced</a>
+  <span> • </span>
+  <a href="#example-dotfiles-repository">Example Dotfiles Repo</a>
   <p></p>
 
 ![Go](https://img.shields.io/badge/Made%20with%20Go-00ADD8.svg?style=for-the-badge&logo=go&logoColor=ffffff)
