@@ -1,23 +1,96 @@
-# shazam.sh
+<div align="center">
+  <h1>shazam.sh</h1>
 
-Dotfiles manager on steroids.
-Makes managing your dotfiles a breeze.
+  <p>Dotfiles 🗃️ manager on steroids ⚡.</p>
+  <p>Makes managing 🤖 your dotfiles a breeze 💪.</p>
 
-# Why not use stow?
+  <a href="#why">Why?</a>
+  <span> • </span>
+  <a href="#install">Install</a>
+  <span> • </span>
+  <a href="#configuration">Configuration</a>
+  <span> • </span>
+  <a href="#example">Example</a>
+  <span> • </span>
+  <a href="#advanced-configuration">Advanced</a>
+  <p></p>
 
-Stow is great,
-but AFAIK it doesn't support symlinking files to different directories.
+![Go](https://img.shields.io/badge/Made%20with%20Go-00ADD8.svg?style=for-the-badge&logo=go&logoColor=ffffff)
+
+</div>
+
+# Why
+
+Why not simply use GNU stow?
+but AFAIK it doesn't support symlinking files to
+various different directories easily.
 
 This is a feature that I wanted to have in my dotfiles manager.
 
 Also it was just fun to write this.
 
+# Install
+
+Grab the latest, greatest and hottest release from the
+[releases page](https://github.com/mistweaverco/shazam.sh/releases),
+
+or use the following commands depending on your OS:
+
+- [Linux](#install-on-linux)
+- [macOS](#install-on-macos)
+- [Windows](#install-on-windows)
+
+## Install on Linux
+
+On linux you can use `wget` to download the binary.
+
+```sh
+wget -qO- https://github.com/mistweaverco/shazam.sh/releases/latest/download/shazam-linux
+```
+
+Then you can move the binary to a directory in your `$PATH`.
+
+```sh
+sudo mv shazam-linux /usr/bin/shazam
+```
+
+## Install on macOS
+
+On macOS you can use `wget` to download the binary.
+
+```sh
+wget -qO- https://github.com/mistweaverco/shazam.sh/releases/latest/download/shazam-macos
+```
+
+Then you can move the binary to a directory in your `$PATH`.
+
+```sh
+sudo mv shazam-macos /usr/local/bin/shazam
+```
+
+## Install on Windows
+
+> [!NOTE]
+> To be honest I don't know if dotfiles management is a thing on Windows,
+> but if it is, you can use `shazam` to manage your dotfiles.
+
+On Windows you can use the powershell `Invoke-WebRequest` cmdlet to download the binary.
+
+```powershell
+Invoke-WebRequest -Uri https://github.com/mistweaverco/shazam.sh/releases/latest/download/shazam-windows -OutFile shazam.exe
+```
+
+Then you can move the binary to a directory in your `$PATH`.
+
+```powershell
+Move-Item -Path .\shazam.exe -Destination C:\Windows\System32\shazam.exe
+```
 # Configuration
 
 The configuration file is a YAML file that contains a list of symlinks
 that you want to create.
 
-The configuration file is called `shazam.yml` and
+The default configuration file is called `shazam.yml` and
 should be placed in the root of your dotfiles directory.
 
 Here is an example
