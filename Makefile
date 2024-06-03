@@ -9,6 +9,12 @@ build-macos-arm64:
 
 builds: build-linux-64 build-macos-arm64 build-windows-64
 
+lint:
+	golangci-lint run
+
+test:
+	go test -v ./...
+
 release:
 	gh release create --generate-notes v$(VERSION) dist/linux/$(BIN_NAME)-linux dist/macos/$(BIN_NAME)-macos dist/windows/$(BIN_NAME).exe
 
