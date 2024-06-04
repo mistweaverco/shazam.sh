@@ -1,4 +1,5 @@
 BIN_NAME=shazam
+COLORS_ENABLED=1
 
 build-windows-64:
 	GOOS=windows GOARCH=amd64 CGO_ENABLED=0 go build -ldflags "-s -w -X 'github.com/mistweaverco/shazam.sh/cmd/shazam.VERSION=$(VERSION)'" -o dist/windows/$(BIN_NAME).exe main.go
@@ -13,7 +14,10 @@ lint:
 	golangci-lint run
 
 test:
-	go test -v ./...
+	if [ -n $(COLORS_ENABLED) ]; then gotest ./... ; else go test ./...; fi
+
+test-coverage:
+	go test -race -covermode=atomic -coverprofile=coverage.out ./...
 
 release:
 	gh release create --generate-notes v$(VERSION) dist/linux/$(BIN_NAME)-linux dist/macos/$(BIN_NAME)-macos dist/windows/$(BIN_NAME).exe

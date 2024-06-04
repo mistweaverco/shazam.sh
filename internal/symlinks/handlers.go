@@ -34,24 +34,13 @@ func SymlinkCreationErrorHandler(source string, destination string, flags config
 }
 
 func DestinationExistsHandler(destination string, flags config.ConfigFlags) bool {
-	// Destination exists and is not a symlink
-	// Check if we should force deletion
-	if flags.Force {
-		if flags.DryRun {
-			err := os.Remove(destination)
-			if err != nil {
-				log.Error("Error removing existing path", "destination", destination, "error", err)
-				return true
-			}
-		} else {
-			log.Info("Dry run", "destination exists, would be deleted", destination)
-			return true
-		}
-	} else {
+	if flags.DryRun {
 		log.Warn("Destination exists, skipping", "destination", destination)
 		return true
+	} else {
+		log.Info("Dry run", "destination exists, would be deleted", destination)
+		return true
 	}
-	return false
 }
 
 func SymlinkExistsHandler(source string, destination string, flags config.ConfigFlags) bool {
@@ -61,19 +50,11 @@ func SymlinkExistsHandler(source string, destination string, flags config.Config
 			return true
 		} else {
 			// Symlink already exists, but points to a different source
-			if flags.Force {
-				if !flags.DryRun {
-					err = os.Remove(destination)
-					if err != nil {
-						log.Error("Error removing existing path", "destination", destination, "error", err)
-						return true
-					}
-				} else {
-					log.Info("Dry run", "destination exists as symlink, would be deleted", destination)
-					return true
-				}
+			if flags.DryRun {
+				log.Info("Dry run", "destination exists as symlink, would be deleted", destination)
+				return true
 			} else {
-				log.Warn("Destination exists as symlink, skipping", "destination", destination)
+				log.Info("Destination exists as symlink, skipping", "destination", destination)
 				return true
 			}
 		}
