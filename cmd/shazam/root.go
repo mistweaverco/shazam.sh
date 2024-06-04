@@ -17,8 +17,10 @@ var rootCmd = &cobra.Command{
 		if len(args) == 0 {
 			log.Info("Starting shazam.sh 🚀", "version", VERSION)
 
-			cfg := config.GetConfig()
-			symlinks.CreateSymlinks(cfg, config.Flags)
+			cfg := config.NewConfig(config.Config{
+				DataReader: os.ReadFile,
+			})
+			symlinks.CreateSymlinks(cfg.File, config.Flags)
 		}
 	},
 }
