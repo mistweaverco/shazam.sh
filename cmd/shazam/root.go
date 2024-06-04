@@ -9,6 +9,10 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var cfg = config.NewConfig(config.Config{
+	DataReader: os.ReadFile,
+})
+
 var rootCmd = &cobra.Command{
 	Use:   "shazam",
 	Short: "Dotfiles 🗃️ manager on steroids ⚡.",
@@ -16,11 +20,7 @@ var rootCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		if len(args) == 0 {
 			log.Info("Starting shazam.sh 🚀", "version", VERSION)
-
-			cfg := config.NewConfig(config.Config{
-				DataReader: os.ReadFile,
-			})
-			symlinks.CreateSymlinks(cfg.File, config.Flags)
+			symlinks.CreateSymlinks(cfg.GetConfigFile(), cfg.GetConfigFlags())
 		}
 	},
 }
@@ -33,11 +33,11 @@ func Execute() {
 }
 
 func init() {
-	rootCmd.PersistentFlags().StringVar(&config.ConfigPath, "config", "shazam.yml", "config file")
-	rootCmd.PersistentFlags().BoolVar(&config.Flags.DryRun, "dry-run", false, "dry run")
-	rootCmd.PersistentFlags().BoolVar(&config.Flags.PullInExisting, "pull-in-existing", false, "pull in existing files")
-	rootCmd.PersistentFlags().StringVar(&config.Flags.Root, "root", "", "root workspace")
-	rootCmd.PersistentFlags().StringVar(&config.Flags.Only, "only", "", "only specific nodes matching a name")
-	rootCmd.PersistentFlags().StringVar(&config.Flags.DotfilesPath, "dotfiles-path", "", "dotfiles path")
-	rootCmd.PersistentFlags().StringVar(&config.Flags.Path, "path", "", "path to config file or dir")
+	rootCmd.PersistentFlags().StringVar(&cfg.ConfigPath, "config", "shazam.yml", "config file")
+	rootCmd.PersistentFlags().BoolVar(&cfg.Flags.DryRun, "dry-run", false, "dry run")
+	rootCmd.PersistentFlags().BoolVar(&cfg.Flags.PullInExisting, "pull-in-existing", false, "pull in existing files")
+	rootCmd.PersistentFlags().StringVar(&cfg.Flags.Root, "root", "", "root workspace")
+	rootCmd.PersistentFlags().StringVar(&cfg.Flags.Only, "only", "", "only specific nodes matching a name")
+	rootCmd.PersistentFlags().StringVar(&cfg.Flags.DotfilesPath, "dotfiles-path", "", "dotfiles path")
+	rootCmd.PersistentFlags().StringVar(&cfg.Flags.Path, "path", "", "path to config file or dir")
 }

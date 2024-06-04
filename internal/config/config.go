@@ -7,6 +7,8 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
+var ps = string(os.PathSeparator)
+
 type ConfigFiles struct {
 	Source      string `yaml:"source"`
 	Destination string `yaml:"destination"`
@@ -30,15 +32,27 @@ type ConfigFlags struct {
 }
 
 type Config struct {
+	ConfigPath string
+	DataReader ConfigDataReader
 	File       ConfigFile
 	Flags      ConfigFlags
-	DataReader ConfigDataReader
 }
 
-var ConfigPath string
-var Flags ConfigFlags
-
 func (c Config) GetConfigFile() ConfigFile {
+	configPath := c.ConfigPath
+	if c.Flags.DotfilesPath != "" {
+		configPath = c.Flags.DotfilesPath + ps + c.ConfigPath
+	}
+
+	file, err := c.DataReader(configPath)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	err = yaml.Unmarshal(file, &c.File)
+	if err != nil {
+		log.Fatal("Error parsing "+configPath, "error", err)
+	}
 	return c.File
 }
 
@@ -47,22 +61,5 @@ func (c Config) GetConfigFlags() ConfigFlags {
 }
 
 func NewConfig(cfg Config) Config {
-	var ps = string(os.PathSeparator)
-
-	configPath := ConfigPath
-	if Flags.DotfilesPath != "" {
-		configPath = Flags.DotfilesPath + ps + ConfigPath
-	}
-
-	file, err := cfg.DataReader(configPath)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	err = yaml.Unmarshal(file, &cfg.File)
-	if err != nil {
-		log.Fatal("Error parsing "+ConfigPath, "error", err)
-	}
-
 	return cfg
 }
