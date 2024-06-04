@@ -23,9 +23,9 @@
 
   <p></p>
 
-[![GitHub Workflow Build Status](https://img.shields.io/github/actions/workflow/status/mistweaverco/shazam.sh/build.yml?style=for-the-badge)](https://github.com/mistweaverco/shazam.sh/actions/workflows/build.yml)
-[![GitHub Workflow Lint Status](https://img.shields.io/github/actions/workflow/status/mistweaverco/shazam.sh/lint.yml?style=for-the-badge&label=lint)](https://github.com/mistweaverco/shazam.sh/actions/workflows/lint.yml)
-[![codecov](https://codecov.io/github/mistweaverco/shazam.sh/graph/badge.svg?token=yoLIXBNzAZ&style=for-the-badge)](https://codecov.io/github/mistweaverco/shazam.sh)
+[![GitHub Workflow Build Status](https://img.shields.io/github/actions/workflow/status/mistweaverco/shazam.sh/build.yml?style=flat)](https://github.com/mistweaverco/shazam.sh/actions/workflows/build.yml)
+[![GitHub Workflow Lint Status](https://img.shields.io/github/actions/workflow/status/mistweaverco/shazam.sh/lint.yml?style=flat&label=lint)](https://github.com/mistweaverco/shazam.sh/actions/workflows/lint.yml)
+[![codecov](https://codecov.io/github/mistweaverco/shazam.sh/graph/badge.svg?token=yoLIXBNzAZ&style=flat)](https://codecov.io/github/mistweaverco/shazam.sh)
 
 
 </div>
