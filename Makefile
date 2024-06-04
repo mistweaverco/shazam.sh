@@ -1,5 +1,4 @@
 BIN_NAME=shazam
-COLORS_ENABLED=1
 
 build-windows-64:
 	GOOS=windows GOARCH=amd64 CGO_ENABLED=0 go build -ldflags "-s -w -X 'github.com/mistweaverco/shazam.sh/cmd/shazam.VERSION=$(VERSION)'" -o dist/windows/$(BIN_NAME).exe main.go
