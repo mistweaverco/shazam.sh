@@ -164,13 +164,13 @@ dotfiles
 ├── shazam.yml
 ├── configurations
 │   ├── git
-│   │   ├── gitconfig
+│   │   ├── .gitconfig
 │   ├── ssh
 │   │   ├── config
 
 ```
 
-You want to symlink the `gitconfig` file to `$HOME/.gitconfig`
+You want to symlink the `.gitconfig` file to `$HOME/.gitconfig`
 and the `config` file to `$HOME/.ssh/config`.
 
 Your `shazam.yml` file would look like this
@@ -179,7 +179,7 @@ Your `shazam.yml` file would look like this
 configurations:
   - name: git
     files:
-      - source: gitconfig
+      - source: .gitconfig
         destination: $HOME/.gitconfig
   - name: ssh
     files:
@@ -207,7 +207,7 @@ dotfiles
 ├── shazam.yml
 ├── configurations
 │   ├── git
-│   │   ├── gitconfig
+│   │   ├── .gitconfig
 │   ├── ssh
 │   │   ├── config
 ├── neovimfiles
@@ -221,7 +221,7 @@ Then your `shazam.yml` file would look like this:
 configurations:
   - name: git
     files:
-      - source: gitconfig
+      - source: .gitconfig
         destination: $HOME/.gitconfig
   - name: ssh
     files:
@@ -327,7 +327,7 @@ shazam --path configurations/git
 > The `--path` flag works by checking if the path starts
 > with the root directory name + the configuration name + the file or directory name.
 >
-> So you could also run `shazam --path configurations/git/gitconfig`
+> So you could also run `shazam --path configurations/git/.gitconfig`
 
 > [!NOTE]
 > The `--path` flag is not meant to be used in conjunction
