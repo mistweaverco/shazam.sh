@@ -20,6 +20,13 @@ var rootCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		if len(args) == 0 {
 			log.Info("Starting shazam.sh 🚀", "version", VERSION)
+			if cfg.Flags.DotfilesPath == "" {
+				if dir, err := cfg.ConfigDir(); err == nil {
+					cfg.Flags.DotfilesPath = dir
+				} else {
+					log.Warn("Failed to infer dotfiles base directory from config path", "config", cfg.ConfigPath, "error", err)
+				}
+			}
 			symlinks.CreateSymlinks(cfg.GetConfigFile(), cfg.GetConfigFlags())
 		}
 	},

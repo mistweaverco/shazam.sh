@@ -2,6 +2,7 @@ package config
 
 import (
 	"os"
+	"path/filepath"
 
 	"github.com/charmbracelet/log"
 	"gopkg.in/yaml.v3"
@@ -38,10 +39,26 @@ type Config struct {
 	Flags      ConfigFlags
 }
 
-func (c Config) GetConfigFile() ConfigFile {
+func (c Config) ResolvedConfigPath() (string, error) {
 	configPath := c.ConfigPath
 	if c.Flags.DotfilesPath != "" {
-		configPath = c.Flags.DotfilesPath + ps + c.ConfigPath
+		configPath = filepath.Join(c.Flags.DotfilesPath, c.ConfigPath)
+	}
+	return filepath.Abs(configPath)
+}
+
+func (c Config) ConfigDir() (string, error) {
+	p, err := c.ResolvedConfigPath()
+	if err != nil {
+		return "", err
+	}
+	return filepath.Dir(p), nil
+}
+
+func (c Config) GetConfigFile() ConfigFile {
+	configPath, err := c.ResolvedConfigPath()
+	if err != nil {
+		log.Fatal("Error resolving config path", "config", c.ConfigPath, "error", err)
 	}
 
 	file, err := c.DataReader(configPath)

@@ -6,6 +6,7 @@ import (
 
 	"github.com/charmbracelet/log"
 	"github.com/mistweaverco/shazam.sh/internal/config"
+	"github.com/mistweaverco/shazam.sh/internal/ui"
 )
 
 func SymlinkCreationErrorHandler(source string, destination string, flags config.ConfigFlags) bool {
@@ -33,31 +34,56 @@ func SymlinkCreationErrorHandler(source string, destination string, flags config
 	return false
 }
 
-func DestinationExistsHandler(destination string, flags config.ConfigFlags) bool {
+func DestinationExistsHandler(source string, destination string, flags config.ConfigFlags) (skip bool, aborted bool) {
 	if flags.DryRun {
-		log.Warn("Destination exists, skipping", "destination", destination)
-		return true
-	} else {
-		log.Info("Dry run", "destination exists, would be deleted", destination)
-		return true
+		log.Info("Dry run", "destination exists, would be skipped", destination)
+		return true, false
+	}
+
+	// Non-interactive environments should keep the current flow.
+	if !ui.IsTTY() {
+		log.Info("Destination exists, skipping", "destination", destination)
+		return true, false
+	}
+
+	resolution, err := ui.PromptExistingPathResolution(ui.ExistingPathPromptInput{
+		Source:      source,
+		Destination: destination,
+	})
+	if err != nil {
+		log.Error("Error prompting for resolution", "destination", destination, "error", err)
+		return true, false
+	}
+
+	switch resolution {
+	case ui.ResolutionSkip:
+		log.Info("Destination exists, skipping", "destination", destination)
+		return true, false
+	case ui.ResolutionOverwrite:
+		if err := os.RemoveAll(destination); err != nil {
+			log.Error("Error deleting existing destination", "destination", destination, "error", err)
+			return true, false
+		}
+		log.Info("Deleted existing destination", "destination", destination)
+		return false, false
+	case ui.ResolutionAbort:
+		log.Warn("Aborted by user", "destination", destination)
+		return true, true
+	default:
+		log.Info("Destination exists, skipping", "destination", destination)
+		return true, false
 	}
 }
 
-func SymlinkExistsHandler(source string, destination string, flags config.ConfigFlags) bool {
+func SymlinkExistsHandler(source string, destination string, flags config.ConfigFlags) (skip bool, aborted bool) {
 	if link, err := os.Readlink(destination); err == nil {
 		// Symlink already exists and points to the correct source
 		if link == source {
-			return true
+			return true, false
 		} else {
-			// Symlink already exists, but points to a different source
-			if flags.DryRun {
-				log.Info("Dry run", "destination exists as symlink, would be deleted", destination)
-				return true
-			} else {
-				log.Info("Destination exists as symlink, skipping", "destination", destination)
-				return true
-			}
+			// Symlink already exists, but points to a different source: treat like any other collision.
+			return DestinationExistsHandler(source, destination, flags)
 		}
 	}
-	return false
+	return false, false
 }
