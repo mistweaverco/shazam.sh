@@ -350,7 +350,7 @@ func diffDirs(aDir, bDir string) (string, error) {
 		case aOk && bOk:
 			d, err := diffFiles(aFull, bFull, filepath.Join(aDir, rel), filepath.Join(bDir, rel))
 			if err != nil {
-				out.WriteString(fmt.Sprintf("diff %s\nerror: %v\n\n", rel, err))
+				fmt.Fprintf(&out, "diff %s\nerror: %v\n\n", rel, err)
 				continue
 			}
 			if strings.TrimSpace(d) != "" {
@@ -364,7 +364,7 @@ func diffDirs(aDir, bDir string) (string, error) {
 			// Removed from bDir relative to aDir
 			d, err := diffFiles(aFull, "", filepath.Join(aDir, rel), filepath.Join(bDir, rel))
 			if err != nil {
-				out.WriteString(fmt.Sprintf("diff %s\nerror: %v\n\n", rel, err))
+				fmt.Fprintf(&out, "diff %s\nerror: %v\n\n", rel, err)
 				continue
 			}
 			out.WriteString(d)
@@ -376,7 +376,7 @@ func diffDirs(aDir, bDir string) (string, error) {
 			// Added in bDir relative to aDir
 			d, err := diffFiles("", bFull, filepath.Join(aDir, rel), filepath.Join(bDir, rel))
 			if err != nil {
-				out.WriteString(fmt.Sprintf("diff %s\nerror: %v\n\n", rel, err))
+				fmt.Fprintf(&out, "diff %s\nerror: %v\n\n", rel, err)
 				continue
 			}
 			out.WriteString(d)

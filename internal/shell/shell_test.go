@@ -29,7 +29,9 @@ func TestGetCurrentShell(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			os.Setenv("SHELL", tt.got)
+			if err := os.Setenv("SHELL", tt.got); err != nil {
+				t.Fatalf("os.Setenv(SHELL, %q) failed: %v", tt.got, err)
+			}
 			got := GetCurrentShell()
 			if got != tt.want {
 				t.Errorf("GetCurrentShell() = %v, want %v", got, tt.want)

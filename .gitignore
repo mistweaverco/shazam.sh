@@ -16,3 +16,4 @@ go.work
 
 /configurations
 /shazam.yml
+.golangci-lint-cache
