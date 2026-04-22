@@ -1,14 +1,11 @@
 package config
 
 import (
-	"os"
 	"path/filepath"
 
 	"github.com/charmbracelet/log"
 	"gopkg.in/yaml.v3"
 )
-
-var ps = string(os.PathSeparator)
 
 type ConfigFiles struct {
 	Source      string `yaml:"source"`

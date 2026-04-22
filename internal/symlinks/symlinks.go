@@ -61,7 +61,7 @@ func CreateSymlinks(cfg config.ConfigFile, flags config.ConfigFlags) {
 					} else {
 						// Destination exists: handle symlink collisions separately so we don't prompt twice.
 						if SymlinkExists(destination) {
-							if skip, aborted := SymlinkExistsHandler(source, destination, flags); aborted {
+							if skip, didAbort := SymlinkExistsHandler(source, destination, flags); didAbort {
 								aborted = true
 								break
 							} else if skip {
@@ -73,7 +73,7 @@ func CreateSymlinks(cfg config.ConfigFile, flags config.ConfigFlags) {
 								continue
 							}
 						} else {
-							if skip, aborted := DestinationExistsHandler(source, destination, flags); aborted {
+							if skip, didAbort := DestinationExistsHandler(source, destination, flags); didAbort {
 								aborted = true
 								break
 							} else if skip {
