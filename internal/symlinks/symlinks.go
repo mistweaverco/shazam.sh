@@ -15,6 +15,11 @@ func CreateSymlinks(cfg config.ConfigFile, flags config.ConfigFlags) {
 	}
 	flagPath := dotfilesPath + flags.Path
 
+	var created int
+	var skippedExisting int
+	var alreadyCorrect int
+	var aborted bool
+
 	for rootName := range cfg {
 		for _, node := range cfg[rootName] {
 			if flags.Root != "" && flags.Root != rootName {
@@ -54,11 +59,27 @@ func CreateSymlinks(cfg config.ConfigFile, flags config.ConfigFlags) {
 							}
 						}
 					} else {
-						// Destination probably exists, check if it's a symlink
-						if SymlinkExistsHandler(source, destination, flags) {
-							continue
-						} else if DestinationExistsHandler(destination, flags) {
-							continue
+						// Destination exists: handle symlink collisions separately so we don't prompt twice.
+						if SymlinkExists(destination) {
+							if skip, aborted := SymlinkExistsHandler(source, destination, flags); aborted {
+								aborted = true
+								break
+							} else if skip {
+								if SymlinkPointsToSource(destination, source) {
+									alreadyCorrect++
+								} else {
+									skippedExisting++
+								}
+								continue
+							}
+						} else {
+							if skip, aborted := DestinationExistsHandler(source, destination, flags); aborted {
+								aborted = true
+								break
+							} else if skip {
+								skippedExisting++
+								continue
+							}
 						}
 					}
 				}
@@ -71,9 +92,22 @@ func CreateSymlinks(cfg config.ConfigFile, flags config.ConfigFlags) {
 							continue
 						}
 					}
+					created++
 					log.Info("Symlink created", "source", source, "destination", destination)
 				}
 			}
+			if aborted {
+				break
+			}
+		}
+		if aborted {
+			break
 		}
 	}
+
+	if aborted {
+		log.Warn("Symlink run aborted", "created", created, "skipped_existing", skippedExisting, "already_correct", alreadyCorrect)
+		return
+	}
+	log.Info("Symlink run finished", "created", created, "skipped_existing", skippedExisting, "already_correct", alreadyCorrect)
 }

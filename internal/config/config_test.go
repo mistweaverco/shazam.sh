@@ -1,6 +1,8 @@
 package config
 
 import (
+	"os"
+	"path/filepath"
 	"reflect"
 	"testing"
 )
@@ -84,5 +86,34 @@ func TestConfigFlags(t *testing.T) {
 				t.Errorf("GetConfig() = %v, want %v", tt.got, tt.want)
 			}
 		})
+	}
+}
+
+func TestResolvedConfigPathAndDir(t *testing.T) {
+	tmp := t.TempDir()
+	cfgPath := filepath.Join(tmp, "myconfig.yml")
+	if err := os.WriteFile(cfgPath, []byte("configuration: []\n"), 0644); err != nil {
+		t.Fatalf("write temp config: %v", err)
+	}
+
+	c := NewConfig(Config{
+		ConfigPath: cfgPath,
+		DataReader: os.ReadFile,
+	})
+
+	gotPath, err := c.ResolvedConfigPath()
+	if err != nil {
+		t.Fatalf("ResolvedConfigPath error: %v", err)
+	}
+	if gotPath != cfgPath {
+		t.Fatalf("ResolvedConfigPath = %q, want %q", gotPath, cfgPath)
+	}
+
+	gotDir, err := c.ConfigDir()
+	if err != nil {
+		t.Fatalf("ConfigDir error: %v", err)
+	}
+	if gotDir != tmp {
+		t.Fatalf("ConfigDir = %q, want %q", gotDir, tmp)
 	}
 }
